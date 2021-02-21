@@ -5,7 +5,6 @@ const fs = require('fs');
 const { db, admin } = require('../util/admin');
 const { firebase, firebaseConfig } = require('../firebase-config');
 const { validateSignupData, validateLoginData, reduceUserDetails } = require('../util/validators');
-const { UserRecordMetadata } = require('firebase-functions/lib/providers/auth');
 
 exports.signup = (req, res) => {
   const newUser = {
