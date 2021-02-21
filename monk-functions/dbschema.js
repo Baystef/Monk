@@ -7,5 +7,23 @@ const db = {
       likeCount: 5,
       commentCount: 2
     }
-  ]
+  ],
+  userDetails: {
+    credentials: {
+      userId,
+      email,
+      handle,
+      createdAt,
+      imageUrl,
+      bio,
+      website,
+      location
+    },
+    likes: [
+      {
+        userHandle,
+        screamId
+      }
+    ]
+  }
 }
