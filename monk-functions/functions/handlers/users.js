@@ -63,7 +63,6 @@ exports.login = (req, res) => {
 
   if (!valid) return res.status(400).json(errors);
 
-
   firebase.auth().signInWithEmailAndPassword(email, password)
     .then(data => data.user.getIdToken())
     .then(token => res.json({ token }))
@@ -129,13 +128,12 @@ exports.getAuthenticatedUser = (req, res) => {
           recipient: doc.data().recipient,
           sender: doc.data().sender,
           createdAt: doc.data().createdAt,
-          createdAt: doc.data().createdAt,
           type: doc.data().type,
           read: doc.data().read,
           notifications: doc.id,
         })
       })
-      return res.json({ userData });
+      return res.json(userData);
     })
     .catch(err => {
       console.error(err);

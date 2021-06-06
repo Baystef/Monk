@@ -1,28 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Layout } from 'antd';
-import axios from 'axios';
-
+import { getAllScreams } from '../redux/actions/dataActions';
 import Scream from '../components/Scream';
+import Profile from '../components/Profile';
+
 const { Content } = Layout;
 
 const style = { padding: '8px' };
 const Home = () => {
-  const [screams, setScreams] = useState(null);
-
+  const dispatch = useDispatch();
+  const { screams, loading } = useSelector(state => state.data);
+ 
   useEffect(() => {
-    const getScreams = async () => {
-      try {
-        const { data } = await axios.get('/screams');
-        setScreams(data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
+    dispatch(getAllScreams())
+  }, [dispatch])
 
-    getScreams()
-  }, [])
-
-  const recentScreams = screams ? (
+  const recentScreams = !loading ? (
     screams.map(scream => <Scream key={scream.screamId} scream={scream} />)
   ) : <p>Loading...</p>
 
@@ -36,13 +30,13 @@ const Home = () => {
     >
       <Row gutter={24}>
         <Col className="gutter-row" sm={8} xs={24}>
-          <div style={style}>Profile...</div>
+          <div style={style}><Profile /></div>
         </Col>
         <Col className="gutter-row" sm={16} xs={24}>
-          <div style={{...style, paddingLeft: '12px'}}>{recentScreams}</div>
+          <div style={{ ...style, paddingLeft: '12px' }}>{recentScreams}</div>
         </Col>
       </Row>
-    </Content >
+    </Content>
   )
 }
 

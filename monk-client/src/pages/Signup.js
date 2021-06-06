@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Row, Col, Typography, Form, Input, Button, Spin } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
-import axios from 'axios';
+import {  useSelector, useDispatch } from 'react-redux';
+
+import { signupUser } from '../redux/actions/userActions';
+
+
 import Icon from '../images/monk-icon.png';
 
 const { Title, Text } = Typography;
@@ -36,25 +40,13 @@ const style = {
 
 const Signup = () => {
   const [userDets, setUserDets] = useState({ email: '', password: '', handle: '', confirmPassword: '' })
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
   const history = useHistory();
-  console.log(errors)
+  const dispatch = useDispatch();
+  const { loading, errors } = useSelector(state => state.UI);
+
   const onFinish = (values) => {
-    setLoading(true);
     console.log('Success:', values);
-    axios.post('/signup', values)
-      .then(res => {
-        console.log(res.data);
-        localStorage.setItem('MNKToken', `Bearer ${res.data.token}`);
-        setLoading(false);
-        history.push('/')
-      })
-      .catch(err => {
-        console.log(err.response.data)
-        setErrors(err.response.data);
-        setLoading(false);
-      })
+    dispatch(signupUser(values, history))
   };
 
   const onChange = ({ target: { name, value } }) => {
@@ -73,9 +65,6 @@ const Signup = () => {
           <Form
             name="normal_login"
             className="login-form"
-            initialValues={{
-              remember: true,
-            }}
             onFinish={onFinish}
           >
              <Form.Item
@@ -136,7 +125,7 @@ const Signup = () => {
               <Input
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 name="confirmPassword"
-                type="confirmPassword"
+                type="password"
                 placeholder="Confirm Password"
                 value={userDets.confirmPassword}
                 onChange={onChange}

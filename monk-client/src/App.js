@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Layout } from 'antd';
 import decoder from 'jwt-decode';
 import { Provider } from 'react-redux';
+import axios from 'axios';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -11,47 +12,52 @@ import ProtectedRoute from './ProtectedRoute';
 import NavBar from './components/NavBar';
 
 import store from './redux/store';
+import { SET_AUTHENTICATED } from './redux/types';
+import { logoutUser, getUserData } from './redux/actions/userActions';
 
 import './App.css';
 
 const { Content } = Layout;
 
-let authenticated;
 const token = localStorage.MNKToken;
 if (token) {
   const decodedToken = decoder(token);
   if ((decodedToken.exp * 1000) < Date.now()) {
-    authenticated = false;
+    window.location.replace("/login");
+    store.dispatch(logoutUser())
   } else {
-    authenticated = true;
+    store.dispatch({ type: SET_AUTHENTICATED })
+    axios.defaults.headers.common['Authorization'] = token;
+    store.dispatch(getUserData());
   }
 }
+
 
 function App() {
   return (
     <Provider store={store}>
-        <Router>
+      <Router>
+        <Layout>
+          <NavBar />
           <Layout>
-            <NavBar />
-            <Layout>
-              <Content
-                className="site-layout-background"
-                style={{
-                  padding: 24,
-                  margin: 0,
-                  minHeight: 280,
-                }}
-              >
-                <Switch>
-                  <ProtectedRoute exact path="/" component={Home} authenticated={authenticated} />
-                  <Route path="/login" component={Login}  />
-                  <Route path="/signup" component={Signup} />
-                </Switch>
-              </Content>
-            </Layout>
+            <Content
+              className="site-layout-background"
+              style={{
+                padding: 24,
+                margin: 0,
+                minHeight: 280,
+              }}
+            >
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <ProtectedRoute path="/login" component={Login} />
+                <ProtectedRoute path="/signup" component={Signup} />
+              </Switch>
+            </Content>
           </Layout>
-        </Router>
-     </Provider>
+        </Layout>
+      </Router>
+    </Provider>
   );
 }
 

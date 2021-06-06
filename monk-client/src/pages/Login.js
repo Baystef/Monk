@@ -2,7 +2,10 @@ import { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Row, Col, Typography, Form, Input, Button, Spin } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import axios from 'axios';
+import {  useSelector, useDispatch } from 'react-redux';
+
+import { loginUser } from '../redux/actions/userActions';
+
 import Icon from '../images/monk-icon.png';
 
 const { Title, Text } = Typography;
@@ -36,25 +39,16 @@ const style = {
 
 const Login = () => {
   const [userDets, setUserDets] = useState({ email: '', password: '' })
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
+  // const [loading, setLoading] = useState(false);
+  // const [errors, setErrors] = useState({});
   const history = useHistory();
-  console.log(errors)
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
+  const { loading, errors } = useSelector(state => state.UI);
+
   const onFinish = (values) => {
-    setLoading(true);
     console.log('Success:', values);
-    axios.post('/login', values)
-      .then(res => {
-        console.log(res.data.token)
-        localStorage.setItem('MNKToken', `Bearer ${res.data.token}`)
-        setLoading(false);
-        history.push('/')
-      })
-      .catch(err => {
-        console.log(err.response.data)
-        setErrors(err.response.data);
-        setLoading(false);
-      })
+    dispatch(loginUser(values, history))
   };
 
   const onChange = ({ target: { name, value } }) => {
@@ -114,13 +108,13 @@ const Login = () => {
                 <small>forgot password?</small>
               </a>
             </Form.Item>
-              
+
             {errors?.error && <Text type="danger">{errors.error}</Text>}
             <br />
             <Form.Item>
               <Button type="primary" htmlType="submit" style={style.submit} className="login-form-button" disabled={loading}>
-               {loading ? <Spin /> :  'Log in' }
-            </Button>
+                {loading ? <Spin /> : 'Log in'}
+              </Button>
               {" "}Or<br /> Don't have an account? <Link to="/signup">Register Now!</Link>
             </Form.Item>
           </Form>
