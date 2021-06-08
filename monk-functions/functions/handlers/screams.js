@@ -26,9 +26,10 @@ exports.postScream = (req, res) => {
   };
 
   db.collection('screams').add(newScream).then(doc => {
-    const newScreamCopy = newScream;
-    newScreamCopy.screamId = doc.id;
-    return res.json(newScreamCopy);
+    // const newScreamCopy = newScream;
+    const newScreamCopy = { ...newScream, screamId: doc.id };
+    // newScreamCopy.screamId = doc.id;
+    return res.status(201).json(newScreamCopy);
   })
     .catch(err => {
       console.error(err);
@@ -169,7 +170,8 @@ exports.deleteScream = (req, res) => {
   const document = db.doc(`/screams/${req.params.screamId}`);
   document.get().then(doc => {
     if (!doc.exists) {
-      return res.status(404).json({ error: 'Scream not found' });
+       res.status(404).json({ error: 'Scream not found' });
+       return;
     }
     if (doc.data().userHandle !== req.user.handle) {
       return res.status(403).json({ error: 'Unauthorized'});

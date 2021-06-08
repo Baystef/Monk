@@ -9,23 +9,20 @@ const DeleteScream = ({ screamId }) => {
   const [visible, setVisible] = useState(false)
   const dispatch = useDispatch();
 
-  const removeScream = () => {
-    dispatch(deleteScream(screamId))
-  }
-
   const showPop = () => {
     setVisible(true);
   };
 
-  const confirm = () => {
-    removeScream();
-    setVisible(false);
-    // message.success('Scream Deleted');
-  }
-
   const cancel = () => {
     setVisible(false);
   }
+
+  const confirm = () => {
+    console.log('delete clicked')
+    dispatch(deleteScream(screamId, cancel))
+    // message.success('Scream Deleted');
+  }
+
 
   return (
     <Popconfirm

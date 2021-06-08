@@ -10,7 +10,7 @@ const EditProfile = () => {
   const [state, setState] = useState({ bio: '', website: '', location: '' })
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const { credentials: { bio, website, location }, credentials } = useSelector(state => state.user);
+  const { credentials } = useSelector(state => state.user);
  
   const showModal = () => {
     setIsModalVisible(true);

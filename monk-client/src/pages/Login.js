@@ -39,11 +39,9 @@ const style = {
 
 const Login = () => {
   const [userDets, setUserDets] = useState({ email: '', password: '' })
-  // const [loading, setLoading] = useState(false);
   // const [errors, setErrors] = useState({});
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
   const { loading, errors } = useSelector(state => state.UI);
 
   const onFinish = (values) => {

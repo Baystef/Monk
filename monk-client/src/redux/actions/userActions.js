@@ -41,7 +41,7 @@ export const logoutUser = (history) => (dispatch) => {
   localStorage.removeItem('MNKToken')
   delete axios.defaults.headers.common['Authorization'];
   dispatch({ type: SET_UNAUTHENTICATED })
-  history.push('/login');
+  // history.push('/login');
 }
 
 export const getUserData = () => (dispatch) => {

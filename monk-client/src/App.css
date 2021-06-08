@@ -20,6 +20,20 @@ body {
   color: rgba(255, 255, 255, 0.85) !important;
 }
 
+.ant-menu-item > a:hover,
+.ant-menu-item > a:active {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.ant-modal .ant-card {
+  background-color: transparent;
+}
+
+.ant-modal-body .ant-avatar > img,
+.ant-comment-avatar .ant-avatar-image > img {
+  object-fit: contain;
+}
+
 .ant-row-rtl .logo {
   float: right;
   margin: 16px 0 16px 24px;

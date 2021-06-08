@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import { HomeFilled, UserAddOutlined, LoginOutlined, PlusOutlined, NotificationFilled } from '@ant-design/icons';
 
+import PostScream from './PostScream';
+
 const { Header } = Layout;
 
 const NavBar = () => {
@@ -14,11 +16,7 @@ const NavBar = () => {
       {/* <div className="logo" /> */}
       {authenticated ? (
         <div style={{ display: 'flex', justifyContent: 'center', }}>
-          <Tooltip title="New Post" placement="top">
-            <div className="ant-menu-item">
-              <PlusOutlined />
-            </div>
-          </Tooltip>
+          <PostScream />
           <Tooltip title="Home" placement="top">
             <div className="ant-menu-item">
               <NavLink to="/" >

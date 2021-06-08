@@ -10,13 +10,14 @@ const { Content } = Layout;
 const style = { padding: '8px' };
 const Home = () => {
   const dispatch = useDispatch();
-  const { screams, loading } = useSelector(state => state.data);
- 
+  const { screams } = useSelector(state => state.data);
+
+  console.log(screams)
   useEffect(() => {
     dispatch(getAllScreams())
   }, [dispatch])
 
-  const recentScreams = !loading ? (
+  const recentScreams = screams.length !== 0 ? (
     screams.map(scream => <Scream key={scream.screamId} scream={scream} />)
   ) : <p>Loading...</p>
 

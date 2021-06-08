@@ -1,4 +1,4 @@
-import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM } from '../types';
+import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, POST_SCREAM, SET_SCREAM } from '../types';
 
 const initialState = {
   scream: [],
@@ -14,11 +14,33 @@ export default function dataReducer(state = initialState, action) {
         loading: true
       }
 
+    case SET_SCREAM:
+      return {
+        ...state,
+        scream: action.payload,
+        loading: false
+      }
+
     case SET_SCREAMS:
       return {
         ...state,
         screams: action.payload,
         loading: false
+      }
+
+    case POST_SCREAM:
+      return {
+        ...state,
+        screams: [
+          action.payload, ...state.screams
+        ],
+      }
+
+    case DELETE_SCREAM:
+      let idx = state.screams.findIndex(scream => scream.screamId === action.payload)
+      state.screams.splice(idx, 1);
+      return {
+        ...state
       }
 
     case LIKE_SCREAM:
@@ -31,12 +53,6 @@ export default function dataReducer(state = initialState, action) {
         loading: false
       }
 
-    case DELETE_SCREAM:
-      index = state.screams.findIndex(scream => scream.screamId === action.payload)
-      state.screams.splice(index, 1);
-      return {
-        ...state
-      }
 
     default:
       return state;
