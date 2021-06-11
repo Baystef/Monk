@@ -1,5 +1,5 @@
 import { Menu, Dropdown, Tooltip, Badge, Typography } from 'antd';
-import { NotificationFilled, LikeOutlined, LikeFilled, CommentOutlined, CommentOutFilled  } from '@ant-design/icons';
+import { NotificationFilled, LikeOutlined, CommentOutlined  } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { formatDistance } from 'date-fns';
@@ -13,7 +13,6 @@ const Notifications = () => {
   const [open, setOpen] = useState(false)
   const notifications = useSelector(state => state.user.notifications);
  
-  
   useEffect(() => {
     if (open) {
       onMenuOpen()
@@ -22,7 +21,6 @@ const Notifications = () => {
   }, [open])
 
   const onMenuOpen = () => {
-    // console.log('Walahi mo sise')
     let unreadNotifIds = notifications.filter(not => !not.read).map(not =>  not.notificationId);
     dispatch(markNotificationsRead(unreadNotifIds))
   }

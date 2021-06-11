@@ -2,15 +2,16 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { format } from 'date-fns';
 import { generateFromString } from 'generate-avatar';
-import { Card, Avatar, Typography, Button, message, Tooltip, Spin, Divider } from 'antd';
-import { EditOutlined, SettingOutlined, EnvironmentFilled, CloudFilled, LoadingOutlined, CalendarFilled, PoweroffOutlined } from '@ant-design/icons';
+import { Card, Avatar, Typography, Button, message, Tooltip, Divider } from 'antd';
+import { EditOutlined, SettingOutlined, EnvironmentFilled, CloudFilled, CalendarFilled, PoweroffOutlined } from '@ant-design/icons';
 import { logoutUser, uploadImage } from '../../redux/actions/userActions';
 
 import EditProfile from './EditProfile';
+import ProfileSkeleton from '../../util/ProfileSkeleton';
 
 const { Meta } = Card;
 const { Title } = Typography;
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
 const style = {
   notLoggedIn: {
     padding: '15px',
@@ -138,7 +139,7 @@ const Profile = () => {
         </div>
       </Card>
     </div>
-  )) : (<Spin indicator={antIcon} />)
+  )) : (<ProfileSkeleton />)
 
   return profileMarkup
 }

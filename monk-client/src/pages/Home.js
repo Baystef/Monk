@@ -5,20 +5,23 @@ import { getAllScreams } from '../redux/actions/dataActions';
 import Scream from '../components/scream/Scream';
 import Profile from '../components/profile/Profile';
 
+import ScreamSkeleton from '../util/ScreamSkeleton';
+
 const { Content } = Layout;
 
 const style = { padding: '8px' };
 const Home = () => {
   const dispatch = useDispatch();
-  const { screams } = useSelector(state => state.data);
+  const { screams, loading } = useSelector(state => state.data);
 
   useEffect(() => {
     dispatch(getAllScreams())
   }, [dispatch])
 
-  const recentScreams = screams.length !== 0 ? (
+  const recentScreams = !loading ? (
     screams.map(scream => <Scream key={scream.screamId} scream={scream} />)
-  ) : <p>Loading...</p>
+  ) :
+    <ScreamSkeleton />
 
   return (
     <Content

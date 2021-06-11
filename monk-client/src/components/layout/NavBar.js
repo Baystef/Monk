@@ -1,5 +1,5 @@
 import { Layout, Menu, Tooltip } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import { HomeFilled, UserAddOutlined, LoginOutlined } from '@ant-design/icons';
 

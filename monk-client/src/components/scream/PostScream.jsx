@@ -42,7 +42,7 @@ const PostScream = () => {
 
   return (
     <>
-      <Tooltip title="Post a Scream" placement="top">
+      <Tooltip title="Post a Scream" placement="left">
         <div className="ant-menu-item" onClick={showModal}>
           <PlusOutlined />
         </div>

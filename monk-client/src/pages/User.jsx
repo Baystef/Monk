@@ -7,6 +7,8 @@ import { getUserData } from "../redux/actions/dataActions";
 
 import Scream from "../components/scream/Scream";
 import UserProfile from "../components/profile/UserProfile";
+import ScreamSkeleton from '../util/ScreamSkeleton';
+import ProfileSkeleton from '../util/ProfileSkeleton';
 
 const { Content } = Layout;
 const style = { padding: '8px' };
@@ -26,11 +28,11 @@ const User = () => {
   }, [handle, dispatch])
 
   const screamsMarkup = loading ? (
-    <p>Loading...</p>
+    <ScreamSkeleton />
   ) : screams === null ? (
     <p>No screams from this user yet</p>
   ) : screamId ? (
-    
+
     screams.map(scream => {
       if (scream.screamId !== screamId) {
         return <Scream key={scream.screamId} scream={scream} />
@@ -52,7 +54,7 @@ const User = () => {
     >
       <Row gutter={24}>
         <Col className="gutter-row" sm={8} xs={24}>
-          <div style={style}>{profile === null ? <p>Loading profile...</p> : <UserProfile profile={profile} />}</div>
+          <div style={style}>{profile === null ? <ProfileSkeleton /> : <UserProfile profile={profile} />}</div>
         </Col>
         <Col className="gutter-row" sm={16} xs={24}>
           <div style={{ ...style, paddingLeft: '12px' }}>{screamsMarkup}</div>

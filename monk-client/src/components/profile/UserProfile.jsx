@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { Card, Avatar, Typography, Button, message, Tooltip, Spin, Divider } from 'antd';
-import { EditOutlined, SettingOutlined, EnvironmentFilled, CloudFilled, LoadingOutlined, CalendarFilled, PoweroffOutlined } from '@ant-design/icons';
+import { Card, Avatar, Typography, Tooltip, Divider } from 'antd';
+import { EditOutlined, SettingOutlined, EnvironmentFilled, CloudFilled, CalendarFilled, PoweroffOutlined } from '@ant-design/icons';
 import { generateFromString } from 'generate-avatar';
 import { format } from 'date-fns';
 

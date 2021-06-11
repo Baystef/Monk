@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Comment, Tooltip, Avatar, Divider } from 'antd';
-import { DislikeOutlined, CommentOutlined, DeleteOutlined } from '@ant-design/icons';
+import { CommentOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import { formatDistance, format } from 'date-fns';
 
@@ -27,7 +27,6 @@ const Scream = ({  scream: { body, createdAt, userImage, userHandle, screamId, l
     </Tooltip>,
     deleteButton(),
     <ScreamDialog screamId={screamId} userHandle={userHandle} openModal={openModal} />,
-    <span key="comment-basic-reply-to">Reply to</span>,
   ];
 
   return (
