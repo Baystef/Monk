@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, Tooltip, Form, Input } from 'antd';
 import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { editUserDetails } from '../redux/actions/userActions';
+import { editUserDetails } from '../../redux/actions/userActions';
 
 
 const EditProfile = () => {

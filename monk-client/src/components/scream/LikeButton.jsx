@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { Tooltip } from "antd";
 import { LikeOutlined, LikeFilled } from "@ant-design/icons";
-import { likeScream, unlikeScream } from '../redux/actions/dataActions';
+import { likeScream, unlikeScream } from '../../redux/actions/dataActions';
 
 
 const style = {
@@ -59,7 +59,7 @@ const LikeButton = ({ screamId, likeCount }) => {
 
 LikeButton.propTypes = {
   screamId: PropTypes.string.isRequired,
-  likeCount: PropTypes.number.isRequired
+  likeCount: PropTypes.number
 }
  
 export default LikeButton;

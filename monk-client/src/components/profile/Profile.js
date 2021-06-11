@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { format } from 'date-fns';
 import { generateFromString } from 'generate-avatar';
 import { Card, Avatar, Typography, Button, message, Tooltip, Spin, Divider } from 'antd';
-import { EditOutlined, EllipsisOutlined, SettingOutlined, EnvironmentFilled, CloudFilled, LoadingOutlined, CalendarFilled, PoweroffOutlined } from '@ant-design/icons';
-import { logoutUser, uploadImage } from '../redux/actions/userActions';
+import { EditOutlined, SettingOutlined, EnvironmentFilled, CloudFilled, LoadingOutlined, CalendarFilled, PoweroffOutlined } from '@ant-design/icons';
+import { logoutUser, uploadImage } from '../../redux/actions/userActions';
 
 import EditProfile from './EditProfile';
 

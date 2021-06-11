@@ -1,31 +1,48 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Tooltip, Modal, Card, Typography, Space, Avatar, Skeleton } from "antd";
 import { CommentOutlined, ExpandAltOutlined } from "@ant-design/icons";
 import { format } from 'date-fns';
-import { getScream } from '../redux/actions/dataActions';
+import { getScream, clearErrors } from '../../redux/actions/dataActions';
 
 import LikeButton from './LikeButton';
+import Comments from './Comments';
+import CommentForm from './CommentForm';
 
 const { Meta } = Card;
 const { Text } = Typography;
 
-const ScreamDialog = ({ screamId, userHandle }) => {
+const ScreamDialog = ({ screamId, userHandle, openModal }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [paths, setPaths] = useState({ oldPath: '', newPath: '' })
   const dispatch = useDispatch();
-  const { scream: { body, createdAt, likeCount, commentCount, userImage } } = useSelector(state => state.data);
+  const { scream: { body, createdAt, likeCount, commentCount, userImage, comments } } = useSelector(state => state.data);
   const { loading } = useSelector(state => state.UI);
 
   const showModal = () => {
-    dispatch(getScream(screamId))
+    let oldPath = window.location.pathname;
+    const newPath = `/user/${userHandle}/scream/${screamId}`;
+    if (oldPath === newPath) oldPath = `/user/${userHandle}`;
+    window.history.pushState(null, null, newPath)
+    setPaths({ oldPath, newPath })
     setIsModalVisible(true);
+    dispatch(getScream(screamId))
   };
 
   const handleCancel = () => {
+    window.history.pushState(null, null, paths.oldPath)
     setIsModalVisible(false);
+    dispatch(clearErrors())
   };
+
+  useEffect(() => {
+    if (openModal) {
+      showModal()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openModal])
 
   const screamDetails = (
     <>
@@ -47,7 +64,6 @@ const ScreamDialog = ({ screamId, userHandle }) => {
           {" "}
           <span className="comment-action">{commentCount}</span>
         </Tooltip>,
-        // <EllipsisOutlined key="ellipsis" />,
       ]}
     >
       <Skeleton loading={loading} avatar active>
@@ -71,10 +87,12 @@ const ScreamDialog = ({ screamId, userHandle }) => {
         title="Scream Details"
         visible={isModalVisible}
         onCancel={handleCancel}
-        width={400}
+        width={500}
         footer={null}
       >
         {dialogBody}
+        <CommentForm screamId={screamId} />
+        {comments?.length > 0 && <Comments comments={comments} />}
       </Modal>
     </>
   );
@@ -83,6 +101,7 @@ const ScreamDialog = ({ screamId, userHandle }) => {
 ScreamDialog.propTypes = {
   userHandle: PropTypes.string.isRequired,
   screamId: PropTypes.string.isRequired,
+  openModal: PropTypes.bool
 }
 
 export default ScreamDialog;

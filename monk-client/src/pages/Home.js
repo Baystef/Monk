@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Layout } from 'antd';
 import { getAllScreams } from '../redux/actions/dataActions';
-import Scream from '../components/Scream';
-import Profile from '../components/Profile';
+import Scream from '../components/scream/Scream';
+import Profile from '../components/profile/Profile';
 
 const { Content } = Layout;
 
@@ -12,7 +12,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const { screams } = useSelector(state => state.data);
 
-  console.log(screams)
   useEffect(() => {
     dispatch(getAllScreams())
   }, [dispatch])

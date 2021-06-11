@@ -1,9 +1,10 @@
 import { Layout, Menu, Tooltip } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
-import { HomeFilled, UserAddOutlined, LoginOutlined, PlusOutlined, NotificationFilled } from '@ant-design/icons';
+import { HomeFilled, UserAddOutlined, LoginOutlined } from '@ant-design/icons';
 
-import PostScream from './PostScream';
+import PostScream from '../scream/PostScream';
+import Notifications from './Notifications';
 
 const { Header } = Layout;
 
@@ -24,11 +25,7 @@ const NavBar = () => {
               </NavLink>
             </div>
           </Tooltip>
-          <Tooltip title="Notifications" placement="top">
-            <div className="ant-menu-item">
-              <NotificationFilled />
-            </div>
-          </Tooltip>
+          <Notifications />
         </div>
       ) : (
         <Menu style={{ display: 'flex', justifyContent: 'center' }} theme="dark" mode="horizontal" selectedKeys={[location.pathname]}>

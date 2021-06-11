@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Popconfirm, message, Tooltip } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
-import { deleteScream } from "../redux/actions/dataActions";
+import { deleteScream } from "../../redux/actions/dataActions";
 
 const DeleteScream = ({ screamId }) => {
   const [visible, setVisible] = useState(false)

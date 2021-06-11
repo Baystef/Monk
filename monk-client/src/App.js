@@ -7,9 +7,10 @@ import axios from 'axios';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import User from './pages/User';
 import ProtectedRoute from './ProtectedRoute';
 
-import NavBar from './components/NavBar';
+import NavBar from './components/layout/NavBar';
 
 import store from './redux/store';
 import { SET_AUTHENTICATED } from './redux/types';
@@ -52,6 +53,8 @@ function App() {
                 <Route exact path="/" component={Home} />
                 <ProtectedRoute path="/login" component={Login} />
                 <ProtectedRoute path="/signup" component={Signup} />
+                <Route exact path="/user/:handle" component={User} />
+                <Route exact path="/user/:handle/scream/:screamId" component={User} />
               </Switch>
             </Content>
           </Layout>

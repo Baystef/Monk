@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Tooltip, Modal, Input, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { postScream, clearErrors } from '../redux/actions/dataActions';
+import { postScream, clearErrors } from '../../redux/actions/dataActions';
 
 const { TextArea } = Input;
 
